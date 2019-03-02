@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 // import { Button } from 'grommet';
-import { flip } from '../animations';
+import { shake } from '../animations';
 
 const CardContainer = styled.div`
     position: relative;
@@ -22,7 +22,7 @@ const CardContainer = styled.div`
     &:hover {
         /* transform: scale(1.03);
         transition: transform 0.15s ease-out; */
-        background: radial-gradient(ellipse at center, rgba(237,247,222,1) 0%,rgba(254,254,253,1) 100%); 
+        background: radial-gradient(ellipse at center, rgba(234,242,225,1) 0%,rgba(254,254,253,1) 68%);
     }
 
     @media(max-width: 650px) {
@@ -37,19 +37,77 @@ const CardContainer = styled.div`
     }
 `
 
-const CoverImg = styled.img`
-    margin-top: -25px;
-    /* grid-row: 1 / span 2; */
-    grid-column: 1 / span 1;
-    display: block;
-    width: 128px;
-    height: 198px;
-    box-shadow: 2px 2px 18px -1px rgba(191,191,191,1);
+const BookWrapper = styled.div`
+    margin-top: -30px;
+    transform: rotate(0deg);
     ${props => props.animate
-        ? css`animation: ${flip} 1s linear;`
+        ? `transform: rotate(-4deg);`
         : null
     }
+    transition: transform 0.2s ease-out;
 `
+
+const Book = styled.div`
+    position: relative;
+    transform: perspective(100) rotateY(-3deg);
+    outline: 1px solid transparent;
+    box-shadow: none;
+    margin: 0;
+    /* transition: bottom 1s ease-out; */
+    &::before, &::after {
+        position: absolute;
+        top: 2%;
+        height: 94%;
+        content: ' ';
+        z-index: -1;
+    }
+    &::before {
+        width: 100%;
+        left: 7.5%;
+        background-color: #5a2d18;
+        box-shadow: 2px 2px 10px #333;
+        border-radius: 0px 5px 5px 0px;
+        ${props => props.animate
+            ? `box-shadow: 7px 7px 25px #333;`
+            : null
+        }
+        transition: box-shadow 0.2s ease-out;
+    }
+    &::after {
+        width: 5%;
+        left: 100%;
+        background-color: #EFEFEF;
+        box-shadow: inset 0px 0px 5px #aaa;
+        /* -moz-transform: rotateY(20deg); */
+        transform: perspective(100) rotateY(20deg);
+    }
+    /* ${props => props.animate
+        ? css`animation: ${shake} 1s linear;`
+        : null
+    } */
+`
+
+const CoverImg = styled.img`
+    position: relative;
+    /* max-width: 100%; */
+    width: 128px;
+    height: 198px;
+    border-radius: 0px 5px 5px 0px;
+`
+
+// const CoverImg = styled.img`
+//     margin-top: -25px;
+//     /* grid-row: 1 / span 2; */
+//     grid-column: 1 / span 1;
+//     display: block;
+//     width: 128px;
+//     height: 198px;
+//     box-shadow: 2px 2px 18px -1px rgba(191,191,191,1);
+//     ${props => props.animate
+//         ? css`animation: ${flip} 1s linear;`
+//         : null
+//     }
+// `
 
 const InfoPane = styled.div`
     /* width: 100%; */
@@ -61,14 +119,14 @@ const InfoPane = styled.div`
 const MoreBtn = styled.a`
     display: block;
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-    padding: 5px;
+    bottom: 15px;
+    right: 15px;
+    padding: 3px 6px;
     border-radius: 10px;
     background-color: #6fd696;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     text-decoration: none;
-    color: black;
+    color: white;
 `
 
 class Card extends React.Component {
@@ -85,7 +143,11 @@ class Card extends React.Component {
                 onMouseEnter={() => this.setState(() => ({animate: true}))}
                 onMouseLeave={() => this.setState(() => ({animate: false}))}
             >
-                <CoverImg src={props.imgSrc} alt={props.title} animate={this.state.animate}/>
+                <BookWrapper animate={this.state.animate}>
+                    <Book animate={this.state.animate}>
+                        <CoverImg src={props.imgSrc} alt={props.title} /*animate={this.state.animate}*//>
+                    </Book>
+                </BookWrapper>
                 <InfoPane>
                     <h3>{props.title}</h3>
                     <p><em>By:</em> {props.authors}</p>
