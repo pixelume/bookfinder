@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 // import { Button } from 'grommet';
-// import { bounce } from '../animations';
+import { flip } from '../animations';
 
 const CardContainer = styled.div`
     position: relative;
@@ -20,8 +20,8 @@ const CardContainer = styled.div`
     box-shadow: 2px 2px 18px -1px rgba(191,191,191,1);
     transition: transform 0.2s ease-out;
     &:hover {
-        transform: scale(1.05);
-        transition: transform 0.2s ease-out;
+        transform: scale(1.03);
+        transition: transform 0.15s ease-out;
     }
 
     @media(max-width: 650px) {
@@ -44,6 +44,10 @@ const CoverImg = styled.img`
     width: 128px;
     height: 198px;
     box-shadow: 2px 2px 18px -1px rgba(191,191,191,1);
+    ${props => props.animate
+        ? css`animation: ${flip} 1s linear;`
+        : null
+    }
 `
 
 const InfoPane = styled.div`
@@ -56,8 +60,8 @@ const InfoPane = styled.div`
 const MoreBtn = styled.a`
     display: block;
     position: absolute;
-    bottom: 4px;
-    right: 4px;
+    bottom: 10px;
+    right: 10px;
     padding: 5px;
     border-radius: 10px;
     background-color: #6fd696;
@@ -66,19 +70,31 @@ const MoreBtn = styled.a`
     color: black;
 `
 
-const Card = props => {
-    return (
-        <CardContainer>
-            <CoverImg src={props.imgSrc} alt={props.title}/>
-            <InfoPane>
-                <h3>{props.title}</h3>
-                <p><em>By:</em> {props.authors}</p>
-                <p><em>Publisher:</em> {props.publisher}</p>
-                {/* <a href={props.link}>More Info</a> */}
-            </InfoPane>
-            <MoreBtn href={props.link}>More Info</MoreBtn>
-        </CardContainer>
-    )
+class Card extends React.Component {
+
+    state = {animate: false}
+
+    render() {
+        const {
+            props,
+        } = this;
+
+        return (
+            <CardContainer
+                onMouseEnter={() => this.setState(() => ({animate: true}))}
+                onMouseLeave={() => this.setState(() => ({animate: false}))}
+            >
+                <CoverImg src={props.imgSrc} alt={props.title} animate={this.state.animate}/>
+                <InfoPane>
+                    <h3>{props.title}</h3>
+                    <p><em>By:</em> {props.authors}</p>
+                    <p><em>Publisher:</em> {props.publisher}</p>
+                    {/* <a href={props.link}>More Info</a> */}
+                </InfoPane>
+                <MoreBtn href={props.link}>More Info</MoreBtn>
+            </CardContainer>
+        )
+    }
 }
 
 export default Card;
