@@ -7,7 +7,17 @@ import styled from "styled-components";
 import SearchBox from './Components/SearchBox';
 import axios from 'axios';
 import BooksContainer from "./Containers/BooksContainer";
+import { library } from '@fortawesome/fontawesome-svg-core';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faSearch,
+    faBook
+} from '@fortawesome/free-solid-svg-icons';
 
+library.add(
+    faSearch,
+    faBook
+    )
 
 const theme = {
     global: {
@@ -48,8 +58,8 @@ class App extends Component {
                 q: this.state.searchQuery
             }
         })
-        .then(res => this.setState({bookData: res.data.items, loading: false}))
-        .catch(err => this.setState({err: err, loading: false}))
+        .then(res => this.setState({bookData: res.data.items, loading: false, searchQuery: ''}))
+        .catch(err => this.setState({err: err, loading: false, searchQuery: ''}))
     }
 
     render() {
@@ -60,6 +70,7 @@ class App extends Component {
                     <SearchBox
                         changeHandler={e => this.inputChangeHandler(e)}
                         submitHandler={this.submitHandler}
+                        searchQuery={this.state.searchQuery}
                     />
                     <BooksContainer {...this.state}/>
                 </MainWindow>
