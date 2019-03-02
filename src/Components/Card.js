@@ -20,8 +20,9 @@ const CardContainer = styled.div`
     box-shadow: 2px 2px 18px -1px rgba(191,191,191,1);
     transition: transform 0.2s ease-out;
     &:hover {
-        transform: scale(1.03);
-        transition: transform 0.15s ease-out;
+        /* transform: scale(1.03);
+        transition: transform 0.15s ease-out; */
+        background: radial-gradient(ellipse at center, rgba(237,247,222,1) 0%,rgba(254,254,253,1) 100%); 
     }
 
     @media(max-width: 650px) {
