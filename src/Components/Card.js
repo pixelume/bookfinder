@@ -39,13 +39,17 @@ const CardContainer = styled.div`
 `
 
 const BookWrapper = styled.div`
-    margin-top: -30px;
+    position: relative;
+    right: 0px;
+    bottom: 30px;
     transform: rotate(0deg);
     ${props => props.animate
-        ? `transform: rotate(-4deg);`
+        ? `transform: rotate(3deg);
+        right: 20px;
+        bottom: 40px;`
         : null
     }
-    transition: transform 0.2s ease-out;
+    transition: right 0.2s ease-out, transform 0.2s ease-out, bottom 0.2s ease-out;
 `
 
 const Book = styled.div`
@@ -71,7 +75,7 @@ const Book = styled.div`
         box-shadow: 2px 2px 10px #333;
         border-radius: 0px 5px 5px 0px;
         ${props => props.animate
-            ? `box-shadow: 7px 7px 25px #333;`
+            ? `box-shadow: 20px 10px 45px #333;`
             : null
         }
         transition: box-shadow 0.2s ease-out;
