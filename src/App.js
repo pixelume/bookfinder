@@ -44,7 +44,8 @@ class App extends Component {
         searchQuery: '',
         bookData: null,
         err: null,
-        loading: false
+        loading: false,
+        isEmpty: false
     }
 
     inputChangeHandler = e => {
@@ -52,15 +53,18 @@ class App extends Component {
     }
 
     submitHandler = () => {
-        this.setState({loading: true})
+        if (this.state.searchQuery === '') {
+            this.setState(() => ({isEmpty: true}))
+        }
+        else {this.setState({loading: true})
         axios.get('https://www.googleapis.com/books/v1/volumes', {
             params: {
                 q: this.state.searchQuery
             }
         })
-        .then(res => this.setState({bookData: res.data.items, loading: false, searchQuery: ''}))
-        .catch(err => this.setState({err: err, loading: false, searchQuery: ''}))
-    }
+        .then(res => this.setState({bookData: res.data.items, loading: false, searchQuery: '', isEmpty: false, err: null}))
+        .catch(err => this.setState({err: err, loading: false, searchQuery: '', isEmpty: false}))
+    }}
 
     render() {
         return (

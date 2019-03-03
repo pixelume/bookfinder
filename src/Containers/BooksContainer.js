@@ -22,6 +22,9 @@ const LoadingAnim = styled(FontAwesomeIcon)`
 const BooksContainer = props => {
 
     let display = null;
+    if (props.isEmpty) {
+        display=<h3>You submitted an empty query. Please try again.</h3>
+    }
     if (props.loading) {
         display = <LoadingAnim icon="book" size="6x"/>
     } else if (props.bookData) {
