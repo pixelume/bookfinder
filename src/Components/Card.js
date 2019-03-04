@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 // import { Button } from 'grommet';
 import { shake } from '../animations';
+import overlay from '../Assets/Images/overlay.png';
 
 const CardContainer = styled.div`
     position: relative;
@@ -64,7 +65,9 @@ const Book = styled.div`
     &::before {
         width: 100%;
         left: 7.5%;
-        background-color: #5a2d18;
+        /* background-color: #5a2d18; */
+        background-image: url(${props => props.image}), url(${overlay});
+        background-blend-mode: darken;
         box-shadow: 2px 2px 10px #333;
         border-radius: 0px 5px 5px 0px;
         ${props => props.animate
@@ -144,7 +147,7 @@ class Card extends React.Component {
                 onMouseLeave={() => this.setState(() => ({animate: false}))}
             >
                 <BookWrapper animate={this.state.animate}>
-                    <Book animate={this.state.animate}>
+                    <Book animate={this.state.animate} image={props.imgSrc}>
                         <CoverImg src={props.imgSrc} alt={props.title} /*animate={this.state.animate}*//>
                     </Book>
                 </BookWrapper>
