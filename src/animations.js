@@ -74,6 +74,33 @@ export const shake = keyframes`
     40%,
     60%,
     80% {
-    transform: translate3d(10px, 0, 0);
+        transform: translate3d(10px, 0, 0);
+    }
+`
+
+export const pulsate = keyframes`
+    0% {
+        transform: scale(1);
+        right: 0px;
+    }
+    50% {
+        transform: scale(1.05);
+        right: 6px;
+    }
+    100% {
+        transform: scale(1);
+        right: 0px;
+    }
+`
+
+export const pulsateShadow = keyframes`
+    0% {
+        box-shadow: 2px 2px 10px #333;
+    }
+    50% {
+        box-shadow: 8px 8px 25px #333;
+    }
+    100% {
+        box-shadow: 2px 2px 10px #333;
     }
 `

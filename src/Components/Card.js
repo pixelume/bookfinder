@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 // import { Button } from 'grommet';
-import { shake } from '../animations';
+import { shake, pulsate, pulsateShadow } from '../animations';
 import overlay from '../Assets/Images/overlay.png';
 
 const CardContainer = styled.div`
@@ -19,7 +19,7 @@ const CardContainer = styled.div`
     overflow: visible;
     box-sizing: border-box;
     box-shadow: 2px 2px 18px -1px rgba(191,191,191,1);
-    transition: transform 0.2s ease-out;
+    /* transition: transform 0.2s ease-out; */
     &:hover {
         /* transform: scale(1.03);
         transition: transform 0.15s ease-out; */
@@ -40,16 +40,20 @@ const CardContainer = styled.div`
 
 const BookWrapper = styled.div`
     position: relative;
-    right: 0px;
-    bottom: 30px;
-    transform: rotate(0deg);
+    /* right: 0px; */
+    bottom: 20px;
+    /* transform: scale(1); */
     ${props => props.animate
-        ? `transform: rotate(3deg);
+        ? css`animation: ${pulsate} 1s ease-in-out infinite;`
+        : null
+    }
+    /* ${props => props.animate
+        ? `transform: scale(1.1);
         right: 20px;
         bottom: 40px;`
         : null
-    }
-    transition: right 0.2s ease-out, transform 0.2s ease-out, bottom 0.2s ease-out;
+    } */
+    /* transition: transform 0.2s ease-out, right 0.2s ease-out, bottom 0.2s ease-out; */
 `
 
 const Book = styled.div`
@@ -75,10 +79,14 @@ const Book = styled.div`
         box-shadow: 2px 2px 10px #333;
         border-radius: 0px 5px 5px 0px;
         ${props => props.animate
-            ? `box-shadow: 20px 10px 45px #333;`
+            ? css`animation: ${pulsateShadow} 1s ease-in-out infinite;`
             : null
         }
-        transition: box-shadow 0.2s ease-out;
+        /* ${props => props.animate
+            ? `box-shadow: 18px 18px 30px #333;`
+            : null
+        } */
+        /* transition: box-shadow 0.2s ease-out; */
     }
     &::after {
         width: 5%;
